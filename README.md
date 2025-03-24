@@ -20,7 +20,15 @@ This Chrome extension allows users to record audio by simply typing **"start rec
 2. Open **Chrome** and navigate to `chrome://extensions/`.  
 3. Enable **Developer Mode** in the top right corner.  
 4. Click **Load unpacked** and select the extension folder.  
-5. The extension is now installed.  
+5. The extension is now installed.
+6. Setting Up the Node.js Server
+Navigate to the server directory:
+cd server
+Install the required dependencies:
+npm install
+Start the server:
+node index.js
+The server will run on http://localhost:5000
 
 ## Usage  
 1. Open a browser window and type **"start recording"**.  
