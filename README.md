@@ -1,4 +1,4 @@
-# Chrome Extension: Voice Recorder & Summarizer  
+# Chrome Extension: Audio Recorder & Summarizer  
 
 ## Overview  
 This Chrome extension allows users to record audio by simply typing **"start recording"** in the browser. The recorded **WebM audio** can be:  
