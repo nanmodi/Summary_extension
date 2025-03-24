@@ -1,9 +1,9 @@
-// background.js
+
 let recordingTabId = null;
 
-// Create or get offscreen document
+
 async function setupOffscreenDocument() {
-  // Check if we have an offscreen document already
+ 
   const existingContexts = await chrome.runtime.getContexts({
     contextTypes: ['OFFSCREEN_DOCUMENT']
   });
@@ -19,11 +19,11 @@ async function setupOffscreenDocument() {
   });
 }
 
-// Handle messages from popup and offscreen document
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "startRecording") {
     handleStartRecording(sendResponse);
-    return true; // Keep sendResponse function valid after function returns
+    return true; 
   }
   
   if (message.action === "stopRecording") {
@@ -31,7 +31,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
   }
   
-  // Handle messages from offscreen document
+
   if (message.source === "offscreen" && message.type === "recording-complete") {
     handleRecordingComplete(message.data);
   }
@@ -39,7 +39,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 async function handleStartRecording(sendResponse) {
   try {
-    // Get active tab
+   
     const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
     if (!tabs || tabs.length === 0) {
       sendResponse({ success: false, error: "No active tab found" });
@@ -49,13 +49,11 @@ async function handleStartRecording(sendResponse) {
     const activeTabId = tabs[0].id;
     recordingTabId = activeTabId;
     
-    // Setup offscreen document if needed
     await setupOffscreenDocument();
     
-    // Get media stream ID
+ 
     const streamId = await chrome.tabCapture.getMediaStreamId({ targetTabId: activeTabId });
     
-    // Send stream ID to offscreen document
     chrome.runtime.sendMessage({
       target: "offscreen",
       type: "start-recording",
@@ -79,11 +77,11 @@ function handleStopRecording(sendResponse) {
 }
 
 function handleRecordingComplete(data) {
-  // Fetch the recorded WebM file as a Blob
+
   fetch(data.blobUrl)
     .then(response => response.blob())
     .then(blob => {
-      // Create a FormData object to send the file
+     
       const formData = new FormData();
       formData.append("audio", blob, "recording.webm");
 
